@@ -6,8 +6,8 @@ const moment = require('moment')
 /** @type {typeof import('../../Models/User')} */
 const User = use('App/Models/User')
 
-/** @type {typeof import('@adonisjs/mail')} */
-const Mail = use('Mail')
+const Kue = use('Kue')
+const Job = use('App/Jobs/ForgotPasswordMail')
 
 class ForgotPasswordController {
   async store ({ request, response }) {
@@ -20,20 +20,7 @@ class ForgotPasswordController {
 
       await user.save()
 
-      await Mail.send(
-        ['emails.forgot_password'],
-        {
-          email,
-          token: user.token,
-          link: `${request.input('redirect_url')}?token=${user.token}`
-        },
-        message => {
-          message
-            .to(user.email)
-            .from('adonis@curso.com')
-            .subject('Recuperação de senha')
-        }
-      )
+      Kue.dispatch(Job.key, { user, url: request.input('redirect_url') }, { attempts: 3 })
     } catch (err) {
       return response
         .status(err.status)

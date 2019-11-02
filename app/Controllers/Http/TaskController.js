@@ -18,13 +18,14 @@ class TaskController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async index ({ params, request, response, view }) {
+  async index ({ params, request, response }) {
+    const page = request.get()
+
     const tasks = await Task.query()
       .where('project_id', params.projects_id)
       .with('user')
-      .fetch()
+      .paginate(page)
 
     return tasks
   }

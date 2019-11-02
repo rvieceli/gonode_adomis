@@ -1,10 +1,8 @@
 'use strict'
 
-class ForgotPassword {
-  get validateAll () {
-    return true
-  }
+const Base = require('./_Base')
 
+class ForgotPassword extends Base {
   get rules () {
     return {
       email: 'required|email',

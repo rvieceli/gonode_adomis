@@ -1,10 +1,8 @@
 'use strict'
 
-class ResetPassword {
-  get validateAll () {
-    return true
-  }
+const Base = require('./_Base')
 
+class ResetPassword extends Base {
   get rules () {
     return {
       token: 'required',

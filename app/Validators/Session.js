@@ -1,10 +1,8 @@
 'use strict'
 
-class Session {
-  get validateAll () {
-    return true
-  }
+const Base = require('./_Base')
 
+class Session extends Base {
   get rules () {
     return {
       email: 'required|email',

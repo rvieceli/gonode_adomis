@@ -1,10 +1,8 @@
 'use strict'
 
-class Task {
-  get validateAll () {
-    return true
-  }
+const Base = require('./_Base')
 
+class Task extends Base {
   get rules () {
     return {
       title: 'required',

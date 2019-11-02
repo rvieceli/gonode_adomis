@@ -1,10 +1,8 @@
 'use strict'
 
-class User {
-  get validateAll () {
-    return true
-  }
+const Base = require('./_Base')
 
+class User extends Base {
   get rules () {
     return {
       username: 'required|unique:users',

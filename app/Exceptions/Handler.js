@@ -1,5 +1,9 @@
 'use strict'
 
+const Raven = require('raven')
+
+const Config = use('Config')
+
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env')
 
@@ -51,7 +55,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async report (error, { request }) {
-    console.log(error)
+    Raven.config(Config.get('services.sentry.dsn'))
+    Raven.captureException(error)
   }
 }
 

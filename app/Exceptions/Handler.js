@@ -1,6 +1,6 @@
 'use strict'
 
-const Raven = require('raven')
+const Haven = require('haven')
 
 const Config = use('Config')
 
@@ -55,8 +55,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async report (error, { request }) {
-    Raven.config(Config.get('services.sentry.dsn'))
-    Raven.captureException(error)
+    Haven.config(Config.get('services.sentry.dsn'))
+    Haven.captureException(error)
   }
 }
 
